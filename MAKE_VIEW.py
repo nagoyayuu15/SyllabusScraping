@@ -4,14 +4,15 @@ import json
 import collections
 
 HTMLSRC="""
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="./VIEW.css">
-	</head>
-	<body>
-		{}
-	</body>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="./VIEW.css">
+</head>
+<body>
+	{}
+</body>
 </html>
 """.replace("\t","").replace("\n","")
 AUTO_SETTING=True
@@ -71,7 +72,7 @@ def make():
 	structure,omitted = integrate_json(json_loder)
 	structure = integrate_omitted_elements(structure,omitted)
 	table_src = generate_table(structure)
-	htm = HTMLSRC.format(table_src).replace("\n","<br>").replace("\t","    ")
+	htm = HTMLSRC.format(table_src)
 	if AUTO_SETTING:
 		name = "VIEW"
 	else:
@@ -97,7 +98,7 @@ def integrate_omitted_elements(structure,omitted):
 				structure[new_key].append(omitted[item][new_key])
 	return structure
 def generate_tr(td_list,header=None):
-	result = "<tr>"
+	result = "<tr class=\"{}\">".format(header)
 	if header is not None:
 		result += "<th class=\"{}\">{}</th>".format(header,header)
 	toggle = False
@@ -110,10 +111,10 @@ def generate_tr(td_list,header=None):
 	result += "</tr>"
 	return result
 def generate_table(structure:dict):
-	result="<talbe><tbody>"
+	result="<table><thead></thead><tbody>"
 	for header in structure:
 		result += generate_tr(structure[header],header)
-	result += "</tbody></table>"
+	result += "</tbody><tfoot></tfoot></table>"
 	return result
 
 def integrate_json(json_loder):
@@ -140,7 +141,7 @@ def make_json_loader():
 		with open(item,"r") as opened_file:
 			loaded_json = json.load(opened_file)
 		for key in [unpack for unpack in loaded_json.keys()]:
-			loaded_json[key.replace(" ","_")] = loaded_json.pop(key)
+			loaded_json[key.replace(" ","_").replace("\n","<br>").replace("\t","    ")] = loaded_json.pop(key).replace("\n","<br>").replace("\t","    ")
 		loaded_json["ITEM_ID"] = item.split("/")[-1].split(".")[0]
 		yield loaded_json
 def call_events(inp):

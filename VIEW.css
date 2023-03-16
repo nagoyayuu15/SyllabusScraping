@@ -1,4 +1,10 @@
-table{
-	
-	overflow-x: scroll;
+td.even{
+	background-color: rgb(211, 211, 211);
+}
+td.odd{
+	background-color: rgb(245, 245, 245);
+}
+th{
+	background-color: rgb(44, 44, 44);
+	color:whitesmoke;
 }

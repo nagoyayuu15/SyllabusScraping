@@ -14,7 +14,7 @@ BeautifulSoup4は以下のコマンドをターミナルにて実行すること
 pip install beautifulsoup4
 全てのPythonファイルは同じフォルダにおいて下さい。
 
-#HOW TO USE:
+#HOW TO USE(TO PREPARE JSON):
 Edit GET_SYLLABUS_LIST.py at first.
 Access `https://syllabus.adm.nagoya-u.ac.jp` ,pick proper urls and write it down in the list`QUERY_FOR_SYLLABUS_LIST`.
 "proper urls" means ones which represent pages which do not show syllabus itself but show list of them.
@@ -26,7 +26,7 @@ All syllabus which appear in downloaded pages will be saved in folders in `Sylla
 After you have downloaded all syllabus,you can execute `PARSER.py`.
 All syllabus which match `./Syllabus/*/*` will convert into Jsonfile.These files will be saved in folders in `SyllabusJson`.
 
-#使い方
+#使い方(JSONの用意)
 まずGET_SYLLABUS_LIST.pyを編集します。 https://syllabus.adm.nagoya-u.ac.jp にアクセスし、
 適切なURLを選んでリスト(QUERY_FOR_SYLLABUS_LIST)に書き込んで下さい。
 適切なURLとはシラバスそのものを含むページではなく、シラバスのリストを含むページを表示するものです。
@@ -37,6 +37,23 @@ GET_SYLLABUS.pyの実行を中断した場合はDOWNLOAD_THE_REST.pyを用いて
 
 全てのシラバスのダウンロードが完了したらPARSER.pyを実行して下さい。
 ./Syllabus/*/*に適合する全てのシラバスがJsonに変換されます。これらのファイルはSyllabusJson内のフォルダに保存されます。
+
+#HOW TO USE(TO MAKE TABLE)
+1.AUTO-SETTING MODE
+Put json-files which you would like to compare with each other into `./Comparision`.
+Then execute MAKE_VIEW.py and check VIEW.html
+2.SELF-SETTING MODE.
+Edit `MAKE_VIEW.py` and overwrite `AUTO_SETTING=True` with `AUTO_SETTING=False`.
+Then when you execute `MAKE_VIEW.py`,you will see console.follow instractions shown in the terminals.
+With SELF-SETTING MODE,You can decide name of product and which files you compare freely.
+
+#使い方(表の作成)
+1.AUTO-SETTINGモード
+比較したいjsonファイルを./ComparisionにいれてMAKE_VIEW.pyを実行しVIEW.htmlを確認して下さい。
+2.SELF-SETTINGモード
+`MAKE_VIEW.py`を編集しAUTO_SETTINGをFalseに書き換えてください。
+その後にMAKE_VIEW.pyを実行するとコンソールが現れます。ターミナルに現れる指示に従ってください。
+SELF-SETTINGモードでは、完成物の名前、比較対象のファイルを自由に決められます。
 
 
 #-----------------------------------------補足,Complements-----------------------------------------
