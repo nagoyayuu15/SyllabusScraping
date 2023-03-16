@@ -1,0 +1,66 @@
+!!!!CAUTION:DON`T SHORTEN BUFFER TIME.!!!!
+If you shorten buffer time unproperly,you may hurt NagoyaUniversity`s server and be blamed for a cyber attack.
+!!!!警告:バッファタイムを短くしないで下さい。!!!!
+不適切にバッファタイムを短くすると、名古屋大学のサーバーに負荷を与え、サイバー攻撃と見なされる恐れがあります。
+
+#ENVIRONMENT
+NEEDS:Python3,BeautifulSoup4.
+BeautifulSoup4 can be installed by executing a following command on terminals.
+`pip install beautifulsoup4`
+deposit all python files on the same directory.
+#環境
+Python3,BeautifulSoup4が必要。
+BeautifulSoup4は以下のコマンドをターミナルにて実行することでインストールされます.
+pip install beautifulsoup4
+全てのPythonファイルは同じフォルダにおいて下さい。
+
+#HOW TO USE:
+Edit GET_SYLLABUS_LIST.py at first.
+Access `https://syllabus.adm.nagoya-u.ac.jp` ,pick proper urls and write it down in the list`QUERY_FOR_SYLLABUS_LIST`.
+"proper urls" means ones which represent pages which do not show syllabus itself but show list of them.
+Then execute `GET_SYLLABUS_LIST.py`.Downloaded HTMs will be saved in `SyllabusList`
+After completing all download,execute `GET_SYLLABUS.py`.
+When you quit the process on the way,you can resume downloading with `DOWNLOAD_THE_REST.py`.
+All syllabus which appear in downloaded pages will be saved in folders in `Syllabus`.
+
+After you have downloaded all syllabus,you can execute `PARSER.py`.
+All syllabus which match `./Syllabus/*/*` will convert into Jsonfile.These files will be saved in folders in `SyllabusJson`.
+
+#使い方
+まずGET_SYLLABUS_LIST.pyを編集します。 https://syllabus.adm.nagoya-u.ac.jp にアクセスし、
+適切なURLを選んでリスト(QUERY_FOR_SYLLABUS_LIST)に書き込んで下さい。
+適切なURLとはシラバスそのものを含むページではなく、シラバスのリストを含むページを表示するものです。
+その後にGET_SYLLABUS_LIST.pyを実行して下さい。ダウンロードされたHTMLはSyllabusListに保存されます。
+全てのダウンロードが完了した後、GET_SYLLABUS.pyを実行して下さい。
+GET_SYLLABUS.pyの実行を中断した場合はDOWNLOAD_THE_REST.pyを用いてダウンロードを再開して下さい。
+保存されたHTMに現れる全てのシラバスがSyllabus内のフォルダに保存されます。
+
+全てのシラバスのダウンロードが完了したらPARSER.pyを実行して下さい。
+./Syllabus/*/*に適合する全てのシラバスがJsonに変換されます。これらのファイルはSyllabusJson内のフォルダに保存されます。
+
+
+#-----------------------------------------補足,Complements-----------------------------------------
+
+#GET_SYLLABUS_LIST
+sends requests to get `DATEBASES_CURRENT+elements of QUERY_FOR_SYLLABUS_LIST`.
+responces are stored in SyllabusList.
+`DATEBASES_CURRENT+QUERY_FOR_SYLLABUS_LISTの要素`をGETするクエリを投げます。
+結果は`SyllabusList`に格納されます。
+
+#GET_SYLLABUS
+sends requests to get syllabuses based on HTMs in `SyllabusList`.
+responces are stored in folders* in `Syllabus`.
+the names of the folders* are the same as HTMs which contain the requested syllabus.
+for example,if syllabusA appears in HTMB.html,syllabusA will be saved at `./Syllabus/HTMB/syllabusA.html`.
+SyllabusList内のHTMに基づいてシラバスを要求します。
+結果はSyllabus内のフォルダ*に格納されます。
+フォルダ*の名前は要求されたシラバスを含むHTMと同じ名前です。
+例えば、SyllabusAがHTMB.htmlに現れるならSyllabusAは`./Syllabus/HTMB/syllabusA.html`に保存されます。
+
+#DOWNLOAD_THE_REST
+solves uncompleted requests which are expressed as `./Syllabus/*/*.undownloaded`
+`./Syllabus/*/*.undownloaded`として表現されている未完了のリクエストを解決します。
+
+#PARSER
+converts HTMs which are in `./Syllabus/*` into json and save it in `./SyllabusJson/*/*.json`.
+`./Syllabus/*`にあるHTMをJsonに変換し`./SyllabusJson/*/*.json`に保存します。
