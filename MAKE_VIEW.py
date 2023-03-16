@@ -53,7 +53,7 @@ def show():
 def make():
 	global comparisons
 	json_loder = make_json_loader()
-	integrate_json(json_loder)
+	structure,order,omitted = integrate_json(json_loder)
 
 def integrate_json(json_loder):
 	global comparisons
@@ -71,7 +71,8 @@ def integrate_json(json_loder):
 			if row_label in item:
 				structure[row_label].append(item[row_label])
 			else:
-				structure[row_label].append(None)	
+				structure[row_label].append(None)
+	return structure,item_order,omitted_elements
 
 def make_json_loader():
 	for item in comparisons:
