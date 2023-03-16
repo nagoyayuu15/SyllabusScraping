@@ -62,5 +62,5 @@ solves uncompleted requests which are expressed as `./Syllabus/*/*.undownloaded`
 `./Syllabus/*/*.undownloaded`として表現されている未完了のリクエストを解決します。
 
 #PARSER
-converts HTMs which are in `./Syllabus/*` into json and save it in `./SyllabusJson/*/*.json`.
-`./Syllabus/*`にあるHTMをJsonに変換し`./SyllabusJson/*/*.json`に保存します。
+converts HTMs which are in `./Syllabus/*/*` into json and save it in `./SyllabusJson/*/*.json`.
+`./Syllabus/*/*`にあるHTMをJsonに変換し`./SyllabusJson/*/*.json`に保存します。
