@@ -3,6 +3,9 @@ import glob
 import json
 import collections
 
+#CURRENT_DIRECTORY:https://syllabus.adm.nagoya-u.ac.jp/data/2023/
+DATEBASES_CURRENT="https://syllabus.adm.nagoya-u.ac.jp/data/2023/"
+
 HTMLSRC="""
 <!DOCTYPE html>
 <html>
@@ -11,7 +14,8 @@ HTMLSRC="""
 	<link rel="stylesheet" href="./VIEW.css">
 </head>
 <body>
-	{}
+	<div id=super>{}</div>
+	<script src="./VIEW.js"></script>
 </body>
 </html>
 """.replace("\t","").replace("\n","")
@@ -97,24 +101,31 @@ def integrate_omitted_elements(structure,omitted):
 			else:
 				structure[new_key].append(omitted[item][new_key])
 	return structure
-def generate_tr(td_list,header=None):
+def generate_tr(td_list,header=None,ITEMID=False):
 	result = "<tr class=\"{}\">".format(header)
 	if header is not None:
-		result += "<th class=\"{}\">{}</th>".format(header,header)
-	toggle = False
+		result += "<th class=\"{}\">{}</th>".format(header,header,header)
+	colmun = 0
 	for td in td_list:
-		if toggle:
-			result += "<td class=\"{} even\">{}</td>".format(header,td)
+		colmun += 1
+		if ITEMID:
+			td = "<a href=\"{}.html\" target=\"_blank\">".format(
+				DATEBASES_CURRENT+td
+			) + td + "</a>"
+		if colmun%2 == 0:
+			result += "<td class=\"{} even colmun{}\">{}</td>".format(header,colmun,td)
 		else:
-			result += "<td class=\"{} odd\">{}</td>".format(header,td)
-		toggle = not toggle
+			result += "<td class=\"{} odd colmun{}\">{}</td>".format(header,colmun,td)
 	result += "</tr>"
 	return result
 def generate_table(structure:dict):
-	result="<table><thead></thead><tbody>"
+	result="<table>"
 	for header in structure:
-		result += generate_tr(structure[header],header)
-	result += "</tbody><tfoot></tfoot></table>"
+		if header == "ITEM_ID":
+			result += generate_tr(structure[header],header,ITEMID=True)
+		else:
+			result += generate_tr(structure[header],header)
+	result += "</table>"
 	return result
 
 def integrate_json(json_loder):
@@ -141,7 +152,9 @@ def make_json_loader():
 		with open(item,"r") as opened_file:
 			loaded_json = json.load(opened_file)
 		for key in [unpack for unpack in loaded_json.keys()]:
-			loaded_json[key.replace(" ","_").replace("\n","<br>").replace("\t","    ")] = loaded_json.pop(key).replace("\n","<br>").replace("\t","    ")
+			loaded_json[
+				key.translate(str.maketrans({"\n":"<br>"," ":"_","(":"_",")":"_","\t":"_","/":"_",",":"_",".":"","[":"_","]":"_"}))
+			] = loaded_json.pop(key).replace("\n","<br>").replace("\t","    ")
 		loaded_json["ITEM_ID"] = item.split("/")[-1].split(".")[0]
 		yield loaded_json
 def call_events(inp):

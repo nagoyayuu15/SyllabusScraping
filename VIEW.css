@@ -1,3 +1,9 @@
+html{
+	background-color: rgb(0, 0, 0);
+}
+table{
+	position:relative;
+}
 td.even{
 	background-color: rgb(211, 211, 211);
 }
@@ -7,4 +13,46 @@ td.odd{
 th{
 	background-color: rgb(44, 44, 44);
 	color:whitesmoke;
+	text-align: left;
+	position: sticky;
+	left:0;
+	z-index: 1;
+}
+
+td.row_hide{
+	white-space: nowrap;
+	text-overflow: clip;
+	max-height: 1rem;
+	height: 1rem;
+	max-width:12rem;
+	overflow: hidden;
+}
+td.row_hide>br{
+	display: none;
+}
+td.row_hide.even{
+	background-color: rgb(39, 39, 39);
+	color:rgb(122, 122, 122);
+}
+td.row_hide.odd{
+	background-color: rgb(71, 71, 71);
+	color:rgb(122, 122, 122);
+}
+td.colmun_hide{
+	max-width: 1rem;
+	width: 1rem;
+	white-space: nowrap;
+	text-overflow: clip;
+	overflow: hidden;
+}
+td.colmun_dide>br{
+	display: none;
+}
+td.colmun_hide.even{
+	background-color: rgb(39, 39, 39);
+	color:rgb(122, 122, 122);
+}
+td.colmun_hide.odd{
+	background-color: rgb(71, 71, 71);
+	color:rgb(122, 122, 122);
 }
