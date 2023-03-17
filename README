@@ -46,6 +46,7 @@ Then execute MAKE_VIEW.py and check VIEW.html
 Edit `MAKE_VIEW.py` and overwrite `AUTO_SETTING=True` with `AUTO_SETTING=False`.
 Then when you execute `MAKE_VIEW.py`,you will see console.follow instractions shown in the terminals.
 With SELF-SETTING MODE,You can decide name of product and which files you compare freely.
+To hide unnecessary informations,click header or cell.
 
 #使い方(表の作成)
 1.AUTO-SETTINGモード
@@ -54,7 +55,7 @@ With SELF-SETTING MODE,You can decide name of product and which files you compar
 `MAKE_VIEW.py`を編集しAUTO_SETTINGをFalseに書き換えてください。
 その後にMAKE_VIEW.pyを実行するとコンソールが現れます。ターミナルに現れる指示に従ってください。
 SELF-SETTINGモードでは、完成物の名前、比較対象のファイルを自由に決められます。
-
+ヘッダーやセルをクリックすると不要な情報が折りたたまれます。
 
 #-----------------------------------------補足,Complements-----------------------------------------
 
